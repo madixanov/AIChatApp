@@ -98,3 +98,8 @@ body {
 
   overflow-x: hidden;
 }
+
+body::selection {
+  background: white;
+  color: black;
+}
