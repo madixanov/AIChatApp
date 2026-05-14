@@ -1,6 +1,7 @@
 import TextInput from "./components/TextInput";
 import WelcomingSection from "./components/WelcomingSection";
 import Chat from "./components/Chat";
+import Loader from "./components/Loader";
 import { messages } from "./mocks/messages";
 import type { Message } from "./mocks/messages";
 
@@ -17,7 +18,6 @@ export default function App() {
 
       setTimeout(() => {
         setChat(messages);
-        setChat(messages);
         setLoading(false);
       }, 1000)
     }
@@ -26,8 +26,8 @@ export default function App() {
   }, [chat]);
 
   return (
-    <main className="w-full md:max-w-5xl lg:max-w-300 xl:max-w-337.5 min-h-screen flex flex-col justify-center p-5 relative">
-      {chat.length > 0 ? <Chat messages={chat} /> : <WelcomingSection />}
+    <main className={`w-full md:max-w-5xl lg:max-w-300 xl:max-w-337.5 min-h-screen flex flex-col ${chat.length === 0 && !loading ? "justify-center" : "justify-end"} p-5 relative`}>
+      {loading ? <Loader /> : (chat.length > 0 ? <Chat messages={chat} /> : <WelcomingSection />)}
       <TextInput />
 
       {/* Gradient overlay */}
