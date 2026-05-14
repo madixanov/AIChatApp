@@ -1,9 +1,9 @@
+import WelcomingSection from "./components/WelcomingSection";
+
 export default function App() {
   return (
-    <div className="h-screen flex items-center justify-center bg-black">
-      <h1 className="text-5xl font-bold text-white">
-        Tailwind Works
-      </h1>
-    </div>
+    <main className="w-full md:max-w-5xl lg:max-w-300 xl:max-w-337.5 min-h-screen flex items-center p-5">
+      <WelcomingSection />
+    </main>
   );
 }
