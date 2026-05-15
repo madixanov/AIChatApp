@@ -1,4 +1,4 @@
-import { generateResponse } from "../services/ai.service";
+import { generateResponse } from "../services/ai.service.js";
 
 export const chatController = 
     async (req, res) => {
