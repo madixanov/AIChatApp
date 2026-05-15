@@ -2,35 +2,66 @@ import TextInput from "./components/TextInput";
 import WelcomingSection from "./components/WelcomingSection";
 import Chat from "./components/Chat";
 import Loader from "./components/Loader";
-import { messages } from "./mocks/messages";
-import type { Message } from "./mocks/messages";
+import { sendMessage } from "../api/api";
+import type { ChatMessage } from "../lib/types";
 
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 
 export default function App() {
-  const [chat, setChat] = useState<Message[]>([]);
+  const [chat, setChat] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+  const handleSend = async (text: string) => {
+  if (!text.trim()) return;
 
-      setTimeout(() => {
-        setChat(messages);
-        setLoading(false);
-      }, 1000)
-    }
+  const userMessage: ChatMessage = {
+    role: "user",
+    content: text,
+  };
 
-    fetchData();
-  }, [chat]);
+  setChat((prev) => [...prev, userMessage]);
+  setLoading(true);
+
+  try {
+    const updatedChat = [...chat, userMessage];
+
+    const res = await sendMessage(updatedChat);
+
+    const botMessage: ChatMessage = {
+      id: res.id,
+      role: "assistant",
+      content: res.content,
+    };
+
+    setChat((prev) => [...prev, botMessage]);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
-    <main className={`w-full md:max-w-5xl lg:max-w-300 xl:max-w-337.5 min-h-screen flex flex-col ${chat.length === 0 && !loading ? "justify-center" : "justify-end"} p-5 relative`}>
-      {loading ? <Loader /> : (chat.length > 0 ? <Chat messages={chat} /> : <WelcomingSection />)}
-      <TextInput />
+    <main className={`w-full md:max-w-5xl lg:max-w-250 xl:ma-w-337.5 min-h-screen flex flex-col mx-auto ${
+      chat.length === 0 ? "justify-center" : "justify-end"
+    } p-5 relative`}>
 
-      {/* Gradient overlay */}
+      {/* CHAT ALWAYS */}
+      {chat.length > 0 ? (
+        <Chat messages={chat} />
+      ) : (
+        <WelcomingSection />
+      )}
+
+      {/* LOADER INSIDE CHAT AREA */}
+      {loading && (
+        <div className="mt-3">
+          <Loader />
+        </div>
+      )}
+
+      <TextInput onSend={handleSend} />
+
       <div className="pointer-events-none fixed bottom-0 left-0 right-0 h-32 bg-linear-to-t from-bg to-transparent z-10" />
     </main>
   );

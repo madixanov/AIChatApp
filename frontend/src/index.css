@@ -103,3 +103,18 @@ body::selection {
   background: white;
   color: black;
 }
+
+.prose {
+  color: white;
+}
+
+.prose pre {
+  background: #111;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.prose code {
+  color: #7dd3fc;
+}
