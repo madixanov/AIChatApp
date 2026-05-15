@@ -1,37 +1,29 @@
-import { OpenAI } from "openai/client.js"
-import { APIKeys } from "openai/resources/admin/organization/projects/api-keys.js"
 import dotenv from "dotenv";
+import Groq from "groq-sdk";
 
 dotenv.config();
 
-const CONFIG_OPENAI = {
-    apiKey: process.env.OPENAI_API_KEY,
-    baseUrl: process.env.AI_BASE_URL,
-    model: process.env.AI_MODEL
-}
+const CONFIG_GROQ = {
+    apiKey: process.env.GROQ_API_KEY,
+    model: process.env.AI_MODEL || "llama-3.1-70b-versatile",
+};
 
-const client = new OpenAI({
-    apiKey: CONFIG_OPENAI.apiKey,
-    baseURL: CONFIG_OPENAI.baseUrl
-})
+const client = new Groq({
+    apiKey: CONFIG_GROQ.apiKey,
+});
 
 export const generateResponse = async (messages) => {
-    const completion = await client.chat.completions.create({
-        model: CONFIG_OPENAI.model,
-
+    const chatCompletion = await client.chat.completions.create({
         messages: [
             {
                 role: "system",
-
-                content:
-                    "You are a helpful AI assistant.",
+                content: "You are a helpful AI assistant.",
             },
-
             ...messages,
         ],
-
-        temperature: 0.7
+        model: CONFIG_GROQ.model,
+        temperature: 0.7,
     });
 
-    return completion.choices[0].message.content;
-}
+    return chatCompletion.choices[0]?.message?.content || "";
+};

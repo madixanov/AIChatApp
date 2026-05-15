@@ -9,6 +9,6 @@ export const chatController =
 
             res.json({ reply });
         } catch (err) {
-            res.status(500).json({ error: "AI request failed" });
+            res.status(500).json({ error: "AI request failed", description: err });
         }
     }
