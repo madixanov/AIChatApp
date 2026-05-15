@@ -1,3 +1,5 @@
+import { generateResponse } from "../services/ai.service";
+
 export const chatController = 
     async (req, res) => {
         try {
