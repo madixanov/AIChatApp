@@ -118,3 +118,9 @@ body::selection {
 .prose code {
   color: #7dd3fc;
 }
+
+.bubble {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

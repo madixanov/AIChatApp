@@ -18,7 +18,7 @@ export default function BotChatBubble({ text, id }: Props) {
                 shadow-sm
                 backdrop-blur-md
                 break-words
-                leading-relaxed
+                leading-relaxed bubble
             ">
                 <MarkdownMessage content={text} />
             </div>
