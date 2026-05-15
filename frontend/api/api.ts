@@ -1,7 +1,9 @@
 import type { ChatMessage } from "../lib/types";
 
+const URL = import.meta.env.VITE_BACKEND_URL
+
 export const sendMessage = async (messages: ChatMessage[]) => {
-  const res = await fetch("http://localhost:5000/api/chat", {
+  const res = await fetch(`${URL}/chat`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
