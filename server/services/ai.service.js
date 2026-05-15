@@ -1,5 +1,8 @@
 import { OpenAI } from "openai/client.js"
 import { APIKeys } from "openai/resources/admin/organization/projects/api-keys.js"
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const CONFIG_OPENAI = {
     apiKey: process.env.OPENAI_API_KEY,
