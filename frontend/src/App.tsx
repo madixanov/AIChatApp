@@ -36,6 +36,13 @@ export default function App() {
     setChat((prev) => [...prev, botMessage]);
   } catch (err) {
     console.log(err);
+
+    const errorMessage: ChatMessage = {
+      role: "error",
+      content: "⚠️ Something went wrong. Server error or network issue.",
+    };
+
+    setChat((prev) => [...prev, errorMessage]);
   } finally {
     setLoading(false);
   }
