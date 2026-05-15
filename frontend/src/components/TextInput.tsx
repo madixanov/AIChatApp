@@ -16,7 +16,7 @@ export default function TextInput({ onSend }: Props) {
     }
 
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full md:max-w-5xl lg:max-w-250 xl:ma-w-350 px-4 z-30">
+        <div className="flex flex-col gap-2 fixed bottom-6 left-1/2 -translate-x-1/2 w-full md:max-w-5xl lg:max-w-250 xl:ma-w-350 px-4 z-30">
             <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-surface-light px-4 py-3 shadow-lg backdrop-blur-md">
                 
                 {/* mic */}
